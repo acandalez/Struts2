@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+     
+<struts>
+ 
+	<constant name="struts.devMode" value="true" />
+
+	<package name="default" extends="struts-default"><!-- default -->
+ 
+    
+         
+         <!-- If no class attribute is specified the framework will assume success and 
+        render the result index.jsp -->
+        <!-- If no name value for the result node is specified the success value is the default -->
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+		
+		<!-- If the URL is hello.action the call the execute method of class HelloWorldAction.
+		If the result returned by the execute method is success render the HelloWorld.jsp -->
+		<action name="persona" class="examples.PersonaAction" method="execute">
+			<result name="success">/hellopersona.jsp</result>
+			<result name="input">/error.jsp</result>
+		</action>
+		
+		<action name="employee" class="employee.action.EmployeeAction" method="execute">
+			<result name="success">/Employee.jsp</result>
+		</action>
+		
+		
+		
+		
+		<action name="UploadFile" class="examples.val.UploadFileAction">
+            <param name="directorio">C:\\Alexfolder</param>
+            
+            <interceptor-ref name="defaultStack"> <!-- de este modo se garantiza el uso de defualt stack y sólo se parametrizar el intrepcetor fileUpload -->
+                <!-- <param name="fileUpload.maximumSize">999999999</param>-->
+                <param name="fileUpload.allowedTypes">text/plain,image/*,application/*</param>
+                <param name="validation.excludeMethods">espera</param>
+            </interceptor-ref>
+            <interceptor-ref name="logger" />
+            <interceptor-ref name="timer" />
+            <interceptor-ref name="execAndWait"/>
+    		<result name="wait">/espera.jsp</result>
+            <result name="success">/UploadFileSuccess.jsp</result>
+            <result name="input">/upfile.jsp</result>
+
+        </action>
+        
+             
+    </package>
+    
+     
+   
+</struts>
